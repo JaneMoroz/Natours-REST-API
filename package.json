@@ -1,0 +1,25 @@
+{
+  "name": "natours-rest-api",
+  "version": "1.0.0",
+  "description": "Practicing building REST API",
+  "main": "app.js",
+  "scripts": {
+    "start:nodemon": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaneMoroz/Natours-REST-API.git"
+  },
+  "author": "Jane Moroz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaneMoroz/Natours-REST-API/issues"
+  },
+  "homepage": "https://github.com/JaneMoroz/Natours-REST-API#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
