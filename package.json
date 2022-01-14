@@ -4,7 +4,7 @@
   "description": "Practicing building REST API",
   "main": "app.js",
   "scripts": {
-    "start:nodemon": "npx nodemon app.js"
+    "start:nodemon": "npx nodemon server.js"
   },
   "repository": {
     "type": "git",
