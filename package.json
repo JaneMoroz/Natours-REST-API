@@ -4,7 +4,8 @@
   "description": "Practicing building REST API",
   "main": "app.js",
   "scripts": {
-    "start:nodemon": "npx nodemon server.js"
+    "start:nodemon": "npx nodemon server.js",
+    "start:nodemon:prod": "SET NODE_ENV=production&&npx nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/JaneMoroz/Natours-REST-API#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "morgan": "^1.10.0"
   },

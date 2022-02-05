@@ -9,11 +9,19 @@ const app = express();
 ////////////////////////////////////////////////////////////////
 // Middlewares
 
+if (process.env.NODE_ENV === 'development') {
+  // 3-rd party middleware
+  app.use(morgan('dev'));
+}
+
 // Express middleware
 app.use(express.json());
 
-// 3-rd party middleware
-app.use(morgan('dev'));
+// // 3-rd party middleware
+// app.use(morgan('dev'));
+
+// Serving static files
+app.use(express.static(`${__dirname}/public`));
 
 // Create our own middleware
 app.use((req, res, next) => {
