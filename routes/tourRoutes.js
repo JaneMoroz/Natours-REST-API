@@ -9,7 +9,7 @@ const router = express.Router();
 ////////////////////////////////////////////////////////////////
 // Middleware
 
-router.param('id', tourController.checkID);
+// router.param('id', tourController.checkID);
 
 // CheckBody Middleware
 // Check if body contains the name and price property
