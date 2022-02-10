@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { Error } = require('mongoose');
 const Tour = require('./../models/tourModel');
 
 ////////////////////////////////////////////////////////////////
@@ -24,7 +25,7 @@ exports.getAllTours = async (req, res) => {
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
     } else {
-      query = query.sort('-createdAt');
+      query = query.sort('-createdAt _id');
     }
 
     // 3. Field limiting
@@ -33,6 +34,19 @@ exports.getAllTours = async (req, res) => {
       query = query.select(fields);
     } else {
       query = query.select('-__v');
+    }
+
+    // 3. Pagination
+    console.log(req.query.page, req.query.limit);
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      if (skip >= numTours) throw new Error("This page doesn't exist");
     }
 
     // Execute query
