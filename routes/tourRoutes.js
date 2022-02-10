@@ -15,6 +15,10 @@ const router = express.Router();
 // Check if body contains the name and price property
 
 router
+  .route('/top-5-cheap')
+  .get(tourController.aliasTopTours, tourController.getAllTours);
+
+router
   .route('/')
   .get(tourController.getAllTours)
   .post(tourController.createTour);

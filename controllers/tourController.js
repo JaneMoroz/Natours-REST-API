@@ -1,6 +1,13 @@
-const fs = require('fs');
-const { Error } = require('mongoose');
 const Tour = require('./../models/tourModel');
+
+////////////////////////////////////////////////////////////////
+// Get top 5 cheap tours middleware
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+  next();
+};
 
 ////////////////////////////////////////////////////////////////
 // Route handlers
