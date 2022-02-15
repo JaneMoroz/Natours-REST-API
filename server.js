@@ -13,7 +13,7 @@ process.on('uncaughtException', (err) => {
 ////////////////////////////////////////////////////////////////
 // Environment variables
 const dotenv = require('dotenv');
-dotenv.config({ path: './.env.development.local' });
+dotenv.config({ path: './.env.development.local' }); // Need to create .env.development.local by filling up copying .env.development
 
 ////////////////////////////////////////////////////////////////
 // Get app
