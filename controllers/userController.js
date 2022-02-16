@@ -60,6 +60,15 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
+// User deletes his/her data => sets active flag to false
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 // Create User
 exports.createUser = (req, res) => {
   res.status(500).json({

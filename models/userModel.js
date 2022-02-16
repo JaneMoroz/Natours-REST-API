@@ -52,6 +52,11 @@ const userScheme = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 ////////////////////////////////////////////////////////////////
@@ -74,6 +79,13 @@ userScheme.pre('save', function (next) {
 
   this.passwordChangedAt = Date.now() - 1000; // Not to get a bug, where token generates 1 millisecond before this property is set
 
+  next();
+});
+
+////////////////////////////////////////////////////////////////
+// Get users Middleware
+userScheme.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
   next();
 });
 
