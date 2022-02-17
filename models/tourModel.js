@@ -7,6 +7,10 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 ////////////////////////////////////////////////////////////////
+// User Model
+// const User = require('./userModel');
+
+////////////////////////////////////////////////////////////////
 // Validator
 const validator = require('validator');
 
@@ -117,6 +121,12 @@ const tourScheme = new mongoose.Schema(
         day: Number,
       },
     ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -134,6 +144,13 @@ tourScheme.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
+// Embedding => guides: Array => Update might lead to problems
+// tourScheme.pre('save', async function (next) {
+//   const guidesPromises = this.guides.map(async (id) => await User.findById(id));
+//   this.guides = await Promise.all(guidesPromises);
+//   next();
+// });
 
 // Query Middleware
 tourScheme.pre(/^find/, function (next) {
