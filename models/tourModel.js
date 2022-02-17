@@ -93,6 +93,30 @@ const tourScheme = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startLocation: {
+      // GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -110,16 +134,6 @@ tourScheme.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-
-// tourScheme.pre('save', function (next) {
-//   console.log('Will save document...');
-//   next();
-// });
-
-// tourScheme.post('save', function (doc, next) {
-//   console.log(doc);
-//   next();
-// });
 
 // Query Middleware
 tourScheme.pre(/^find/, function (next) {
