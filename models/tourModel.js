@@ -14,8 +14,8 @@ const slugify = require('slugify');
 // Validator
 const validator = require('validator');
 
-// Scheme
-const tourScheme = new mongoose.Schema(
+// Schema
+const tourSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -134,33 +134,41 @@ const tourScheme = new mongoose.Schema(
   }
 );
 
-tourScheme.virtual('durationWeeks').get(function () {
+tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
+});
+
+// Virtual populate
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
 });
 
 // Mongoose Middleware
 // Document Middleware: runs before .save() and .create
-tourScheme.pre('save', function (next) {
+tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
 // Embedding => guides: Array => Update might lead to problems
-// tourScheme.pre('save', async function (next) {
+// tourSchema.pre('save', async function (next) {
 //   const guidesPromises = this.guides.map(async (id) => await User.findById(id));
 //   this.guides = await Promise.all(guidesPromises);
 //   next();
 // });
 
 // Query Middleware
-tourScheme.pre(/^find/, function (next) {
+tourSchema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
 
   this.start = Date.now();
   next();
 });
 
-tourScheme.pre(/^find/, function (next) {
+// Poplulate guides Middleware
+tourSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'guides',
     select: '-__v -passwordChangedAt',
@@ -168,18 +176,18 @@ tourScheme.pre(/^find/, function (next) {
   next();
 });
 
-tourScheme.post(/^find/, function (docs, next) {
+tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds.`);
   next();
 });
 
 // Aggregation Middleware
-tourScheme.pre('aggregate', function (next) {
+tourSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
   next();
 });
 
 // Model
-const Tour = mongoose.model('Tour', tourScheme);
+const Tour = mongoose.model('Tour', tourSchema);
 
 module.exports = Tour;
