@@ -16,6 +16,13 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 ////////////////////////////////////////////////////////////////
+// Get "me" Middleware
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
+////////////////////////////////////////////////////////////////
 // Route handlers
 
 // User updates his/her data
