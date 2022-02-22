@@ -14,7 +14,7 @@ exports.getAll = (Model) =>
       .sort()
       .limitFields()
       .paginate();
-    const doc = await features.query.explain();
+    const doc = await features.query;
     // const doc = await features.query.explain();
 
     // Send response
@@ -49,6 +49,7 @@ exports.getOne = (Model, popOptions) =>
 // Create handler
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const doc = await Model.create(req.body);
 
     res.status(201).json({
