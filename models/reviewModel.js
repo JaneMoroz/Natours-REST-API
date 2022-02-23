@@ -55,7 +55,7 @@ reviewSchema.pre(/^find/, function (next) {
 });
 
 // Calculate average rating on a tour
-reviewSchema.statics.calsAverageRatings = async function (tourId) {
+reviewSchema.statics.calcAverageRatings = async function (tourId) {
   const stats = await this.aggregate([
     {
       $match: { tour: tourId },
@@ -84,12 +84,12 @@ reviewSchema.statics.calsAverageRatings = async function (tourId) {
 
 reviewSchema.post('save', function () {
   // this points to current review
-  this.constructor.calcAverageRatings(this.product);
+  this.constructor.calcAverageRatings(this.tour);
 });
 
 reviewSchema.post(/^findOneAnd/, async function (doc) {
   if (doc) {
-    await doc.constructor.calsAverageRatings(doc.tour);
+    await doc.constructor.calcAverageRatings(doc.tour);
   }
 });
 
