@@ -481,18 +481,17 @@ if (loginForm) {
     });
 }
 if (logOutBtn) logOutBtn.addEventListener('click', _login.logout);
-if (userDataForm) {
-    console.log(userDataForm);
-    userDataForm.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        _updateSettings.updateSettings({
-            name,
-            email
-        }, 'data');
-    });
-}
+if (userDataForm) userDataForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    document.querySelector('.btn--save-settings').textContent = 'Updating...';
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]);
+    await _updateSettings.updateSettings(form, 'data');
+    document.querySelector('.btn--save-settings').textContent = 'Save settings';
+    location.reload();
+});
 if (userPasswordForm) userPasswordForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
     document.querySelector('.btn--save-password').textContent = 'Updating...';
@@ -7597,7 +7596,7 @@ const logout = async ()=>{
             method: 'GET',
             url: 'http://127.0.0.1:3000/api/v1/users/logout'
         });
-        if (res.data.status === 'success') location.reload(true);
+        if (res.data.status === 'success') location.assign('/');
     } catch (err) {
         _alerts.showAlert('error', err.response.data.message);
     }
