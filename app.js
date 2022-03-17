@@ -65,6 +65,9 @@ app.use('/api', limiter);
 
 // Express middleware: body parser, reading data from body into rq.body
 app.use(express.json({ limit: '10kb' }));
+// To get data from the body
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+// To parse cookie
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
