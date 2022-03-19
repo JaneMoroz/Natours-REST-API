@@ -53,7 +53,6 @@ exports.getLoginForm = (req, res) => {
 };
 
 exports.getAccount = (req, res) => {
-  console.log(res.locals.user);
   res.status(200).render('account', {
     title: 'Your account',
   });
