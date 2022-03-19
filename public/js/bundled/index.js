@@ -473,15 +473,12 @@ if (mapBox) {
     _mapbox.displayMap(locations);
 }
 // Login
-if (loginForm) {
-    console.log(loginForm);
-    loginForm.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        _login.login(email, password);
-    });
-}
+if (loginForm) loginForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    _login.login(email, password);
+});
 if (logOutBtn) logOutBtn.addEventListener('click', _login.logout);
 if (userDataForm) userDataForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
@@ -9308,6 +9305,6 @@ const bookTour = async (tourId)=>{
     }
 };
 
-},{"axios":"iYoWk","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./alerts":"ImTlr"}]},["3RnMR","aQpZB"], "aQpZB", "parcelRequire7115")
+},{"axios":"iYoWk","./alerts":"ImTlr","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["3RnMR","aQpZB"], "aQpZB", "parcelRequire7115")
 
 //# sourceMappingURL=index.js.map
