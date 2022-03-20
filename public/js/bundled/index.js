@@ -514,7 +514,7 @@ if (bookBtn) bookBtn.addEventListener('click', (e)=>{
     _stripe.bookTour(tourId);
 });
 const alertMessage = document.querySelector('body').dataset.alert;
-if (alert) _alerts.showAlert('success', alertMessage);
+if (alertMessage) _alerts.showAlert('success', alertMessage, 20);
 
 },{"./login":"heY66","./mapbox":"56yh8","./updateSettings":"ZsTH1","./stripe":"9FpZC","./alerts":"9keIV"}],"heY66":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
