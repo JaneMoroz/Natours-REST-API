@@ -49,9 +49,14 @@ app.use(
 );
 
 // Implement Cors
-app.use(cors());
+app.use(
+  cors({
+    origin: '/',
+    credentials: true,
+  })
+);
 
-app.options('*', cors());
+// app.options('*', cors());
 // app.options('/api/v1/tours/:id', cors())
 
 // Development logging
