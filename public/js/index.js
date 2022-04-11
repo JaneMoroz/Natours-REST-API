@@ -1,9 +1,11 @@
-import '@babel/polyfill';
 import { login, logout } from './login';
 import { displayMap } from './mapbox';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
+
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 // Mapbox
 // Dom el

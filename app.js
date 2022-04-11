@@ -39,11 +39,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
+      defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:', 'blob:'],
       baseUri: ["'self'"],
       fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-      scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
+      scriptSrc: [
+        "'self'",
+        'https:',
+        'http:',
+        'blob:',
+        'https://*.mapbox.com',
+        ,
+        'https://*.stripe.com',
+        'data:',
+        'ws:',
+      ],
       styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
+      objectSrc: ["'none'"],
+      workerSrc: ["'self'", 'data:', 'blob:'],
+      childSrc: ["'self'", 'https:', 'blob:'],
+      imgSrc: ["'self'", 'data:', 'blob:'],
+      connectSrc: ["'self'", 'blob:', 'https:', 'ws:'],
     },
   })
 );
